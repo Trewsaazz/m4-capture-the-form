@@ -29,6 +29,15 @@
       "categorias": ["forense", "web", "osint"],
       "nivel": "novato",
       "creadaEn": "2026-11-14T16:40:00.000Z"
+    },
+    {
+      "id": 4,
+      "alias": "x",
+      "email": "esto-no-es-un-email",
+      "modalidad": "trio",
+      "categorias": "web",
+      "nivel": "dios",
+      "creadaEn": "ayer por la tarde"
     }
   ]
 }

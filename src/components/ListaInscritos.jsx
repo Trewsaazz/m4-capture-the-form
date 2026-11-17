@@ -1,4 +1,5 @@
 import { useInscripciones } from '../hooks/useInscripciones'
+import AvisoDatosCorruptos from './AvisoDatosCorruptos'
 import TarjetaInscrito from './TarjetaInscrito'
 
 export default function ListaInscritos() {
@@ -37,17 +38,19 @@ export default function ListaInscritos() {
 
       {data && (
         <>
+          <AvisoDatosCorruptos descartadas={data.descartadas} />
+
           <p className="contador">
-            {data.length === 1
+            {data.inscripciones.length === 1
               ? '1 participante'
-              : `${data.length} participantes`}
+              : `${data.inscripciones.length} participantes`}
           </p>
 
-          {data.length === 0 ? (
+          {data.inscripciones.length === 0 ? (
             <p className="vacio">Nadie se ha inscrito todavía. Puedes ser el primero.</p>
           ) : (
             <ul className="lista">
-              {data.map((inscripcion) => (
+              {data.inscripciones.map((inscripcion) => (
                 <TarjetaInscrito key={inscripcion.id} inscripcion={inscripcion} />
               ))}
             </ul>
