@@ -54,9 +54,12 @@ export function validarListado(datos) {
   return { inscripciones, descartadas }
 }
 
-// GET /inscripciones, de la más reciente a la más antigua.
-export async function obtenerInscripciones() {
+// GET /inscripciones, de la más reciente a la más antigua y, si se pide, filtrado por nivel.
+export async function obtenerInscripciones(nivel) {
   const parametros = new URLSearchParams({ _sort: 'creadaEn', _order: 'desc' })
+  if (nivel !== 'todos') {
+    parametros.set('nivel', nivel)
+  }
   const datos = await peticion(`/inscripciones?${parametros}`)
   return validarListado(datos)
 }
@@ -85,4 +88,9 @@ export async function crearInscripcion(datosFormulario) {
     throw new Error('El servidor guardó la inscripción, pero respondió con datos inesperados')
   }
   return resultado.data
+}
+
+// DELETE /inscripciones/:id
+export async function eliminarInscripcion(id) {
+  await peticion(`/inscripciones/${encodeURIComponent(id)}`, { method: 'DELETE' })
 }

@@ -1,9 +1,13 @@
+import { useState } from 'react'
+import { NIVELES } from '../schemas/inscripcion'
 import { useInscripciones } from '../hooks/useInscripciones'
 import AvisoDatosCorruptos from './AvisoDatosCorruptos'
 import TarjetaInscrito from './TarjetaInscrito'
 
 export default function ListaInscritos() {
-  const { data, isPending, isError, error, refetch, isFetching } = useInscripciones()
+  const [nivel, setNivel] = useState('todos')
+  const { data, isPending, isError, error, refetch, isFetching, isPlaceholderData } =
+    useInscripciones(nivel)
 
   return (
     <section className="panel" aria-labelledby="titulo-lista" aria-busy={isFetching}>
@@ -16,6 +20,18 @@ export default function ListaInscritos() {
           </span>
         )}
       </div>
+
+      <label className="filtro">
+        Nivel
+        <select value={nivel} onChange={(evento) => setNivel(evento.target.value)}>
+          <option value="todos">Todos</option>
+          {NIVELES.map((opcion) => (
+            <option key={opcion.valor} value={opcion.valor}>
+              {opcion.etiqueta}
+            </option>
+          ))}
+        </select>
+      </label>
 
       {isPending && (
         <div role="status">
@@ -47,9 +63,9 @@ export default function ListaInscritos() {
           </p>
 
           {data.inscripciones.length === 0 ? (
-            <p className="vacio">Nadie se ha inscrito todavía. Puedes ser el primero.</p>
+            <p className="vacio">Nadie se ha inscrito todavía en este nivel. Puedes ser el primero.</p>
           ) : (
-            <ul className="lista">
+            <ul className={isPlaceholderData ? 'lista lista--antigua' : 'lista'}>
               {data.inscripciones.map((inscripcion) => (
                 <TarjetaInscrito key={inscripcion.id} inscripcion={inscripcion} />
               ))}
