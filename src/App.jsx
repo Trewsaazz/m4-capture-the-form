@@ -1,3 +1,5 @@
+import FormularioInscripcion from './components/FormularioInscripcion'
+
 export default function App() {
   return (
     <div className="app">
@@ -12,10 +14,7 @@ export default function App() {
       </header>
 
       <main className="rejilla">
-        <section className="panel">
-          <h2>Inscripción</h2>
-          <p className="panel__intro">Aquí irá el formulario de inscripción.</p>
-        </section>
+        <FormularioInscripcion />
       </main>
 
       <footer className="pie">
