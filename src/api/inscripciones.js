@@ -25,3 +25,23 @@ export async function obtenerInscripciones() {
   const parametros = new URLSearchParams({ _sort: 'creadaEn', _order: 'desc' })
   return peticion(`/inscripciones?${parametros}`)
 }
+
+// POST /inscripciones. Recibe los datos ya validados por el formulario y envía
+// solo lo que el servidor necesita guardar: la fecha de nacimiento, el reto y la
+// casilla de las normas se validan en el cliente pero no se almacenan.
+export async function crearInscripcion(datosFormulario) {
+  const nuevaInscripcion = {
+    alias: datosFormulario.alias,
+    email: datosFormulario.email,
+    modalidad: datosFormulario.modalidad,
+    nombreEquipo: datosFormulario.modalidad === 'equipo' ? datosFormulario.nombreEquipo : '',
+    categorias: datosFormulario.categorias,
+    nivel: datosFormulario.nivel,
+    creadaEn: new Date().toISOString(),
+  }
+
+  return peticion('/inscripciones', {
+    method: 'POST',
+    body: JSON.stringify(nuevaInscripcion),
+  })
+}

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -10,6 +9,7 @@ import {
   NIVELES,
   inscripcionFormSchema,
 } from '../schemas/inscripcion'
+import { useCrearInscripcion } from '../hooks/useInscripciones'
 import { ariaCampo } from '../utils/accesibilidad'
 import { hoyISO } from '../utils/formato'
 import { Campo, GrupoOpciones, MensajeError } from './Campo'
@@ -41,8 +41,7 @@ export default function FormularioInscripcion() {
     mode: 'onTouched',
   })
 
-  // De momento no hay API: guardamos el alias enviado para dar feedback.
-  const [aliasEnviado, setAliasEnviado] = useState(null)
+  const crear = useCrearInscripcion()
 
   // useWatch vuelve a pintar solo cuando cambian estos dos campos.
   const modalidad = useWatch({ control, name: 'modalidad' })
@@ -53,9 +52,9 @@ export default function FormularioInscripcion() {
   // handleSubmit solo llama a esta función si Zod ha dado el visto bueno,
   // y le pasa los datos ya transformados (recortados, email en minúsculas...).
   function enviar(datos) {
-    console.info('Inscripción válida:', datos)
-    setAliasEnviado(datos.alias)
-    reset()
+    crear.mutate(datos, {
+      onSuccess: () => reset(),
+    })
   }
 
   return (
@@ -75,7 +74,8 @@ export default function FormularioInscripcion() {
           </p>
         )}
 
-        <fieldset className="formulario__cuerpo">
+        {/* Mientras se envía, el fieldset desactiva todos los controles de golpe */}
+        <fieldset className="formulario__cuerpo" disabled={crear.isPending}>
           <Campo
             nombre="alias"
             etiqueta="Alias"
@@ -205,14 +205,20 @@ export default function FormularioInscripcion() {
           </div>
         </fieldset>
 
-        {aliasEnviado && (
-          <p className="aviso aviso--exito" role="status">
-            Datos válidos para {aliasEnviado}. Todavía no se envían a ningún servidor.
+        {crear.isError && (
+          <p className="aviso aviso--error" role="alert">
+            No se ha podido completar la inscripción. {crear.error.message}
           </p>
         )}
 
-        <button type="submit" className="boton">
-          Capturar mi plaza
+        {crear.isSuccess && (
+          <p className="aviso aviso--exito" role="status">
+            Inscripción confirmada. Bienvenido al CTF, {crear.data.alias}: ya estás en el listado.
+          </p>
+        )}
+
+        <button type="submit" className="boton" disabled={crear.isPending}>
+          {crear.isPending ? 'Enviando inscripción...' : 'Capturar mi plaza'}
         </button>
       </form>
     </section>
