@@ -1,0 +1,34 @@
+{
+  "inscripciones": [
+    {
+      "id": 1,
+      "alias": "n0p_sled",
+      "email": "lucia.ortega@example.com",
+      "modalidad": "equipo",
+      "nombreEquipo": "Segfault Sisters",
+      "categorias": ["pwn", "reversing"],
+      "nivel": "avanzado",
+      "creadaEn": "2026-11-09T18:22:00.000Z"
+    },
+    {
+      "id": 2,
+      "alias": "base64_bea",
+      "email": "bea.marin@example.com",
+      "modalidad": "solo",
+      "nombreEquipo": "",
+      "categorias": ["crypto", "osint"],
+      "nivel": "intermedio",
+      "creadaEn": "2026-11-11T10:05:00.000Z"
+    },
+    {
+      "id": 3,
+      "alias": "pkt_sniffer",
+      "email": "diego.sanz@example.com",
+      "modalidad": "equipo",
+      "nombreEquipo": "Los del 127.0.0.1",
+      "categorias": ["forense", "web", "osint"],
+      "nivel": "novato",
+      "creadaEn": "2026-11-14T16:40:00.000Z"
+    }
+  ]
+}

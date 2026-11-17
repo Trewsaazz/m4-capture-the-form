@@ -1,4 +1,5 @@
 import FormularioInscripcion from './components/FormularioInscripcion'
+import ListaInscritos from './components/ListaInscritos'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
 
       <main className="rejilla">
         <FormularioInscripcion />
+        <ListaInscritos />
       </main>
 
       <footer className="pie">
