@@ -82,7 +82,7 @@ La respuesta del POST se valida igual: si el servidor devolviera algo inesperado
 
 Herramienta: Claude (modelo Claude Opus 5.5, de Anthropic), usado desde la app de escritorio de Claude con acceso a mi ordenador.
 
-Qué partes se hicieron con IA: todas. La IA eligió el dominio del formulario, diseñó la estructura de carpetas, escribió el código, los estilos, los datos de ejemplo y este README, preparó el historial de commits y subió el repositorio a GitHub desde mi terminal.
+Qué partes se hicieron con IA: todas. La IA eligió el dominio del formulario, diseñó la estructura de carpetas, escribió el código, los estilos, los datos de ejemplo y este README, preparó el historial de commits y publicó el repositorio en mi cuenta de GitHub usando GitHub Desktop en mi ordenador.
 
 Prompt real usado (junto con el PDF del enunciado de la M4):
 
